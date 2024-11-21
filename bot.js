@@ -4,19 +4,22 @@ const express = require('express');
 const token = '7112412287:AAF0C35bDN_qj1tWD9GFATfpwQgZ_VG1eYA'; 
 const bot = new TelegramBot(token, { polling: true });
 
+console.log(bot, 'bot')
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Serve the React app
 app.use(express.static('build'));
+
+const webAppUrl = 'https://tiger-coin.x1cryptoscripts.com/';
 
 bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
-    bot.sendMessage(chatId, 'Welcome! Click here to visit our site:', {
+    bot.sendMessage(chatId, 'Welcome! Click below to visit our site:', {
         reply_markup: {
             inline_keyboard: [[{
                 text: 'Open Tiger Coin',
-                url: 'https://tiger-coin.x1cryptoscripts.com/'
+                web_app: { url: webAppUrl } 
             }]]
         }
     });
